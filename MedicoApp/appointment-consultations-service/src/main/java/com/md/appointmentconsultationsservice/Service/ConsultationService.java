@@ -1,4 +1,19 @@
 package com.md.appointmentconsultationsservice.Service;
 
-public class ConsultationService {
+import com.md.appointmentconsultationsservice.Entities.Consultation;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface ConsultationService {
+
+    List<Consultation> findAllConsultations();
+
+    Optional<Consultation> findConsultationById(Long id);
+
+    Consultation saveConsultation(Consultation consultation);
+
+    Consultation updateConsultation(Long id, Consultation consultation);
+
+    void deleteConsultation(Long id);
 }
