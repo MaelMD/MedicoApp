@@ -10,7 +10,7 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "appointments")
+@Table(name = "consultations")
 @Getter
 @Setter
 @NoArgsConstructor
