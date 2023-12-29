@@ -20,6 +20,8 @@ public class Appointment {
 
     private Date dateRDV;
     private Date heureRDV;
+    @OneToOne
+    private  Consultation consultation;
 
 
 }

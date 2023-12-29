@@ -1,5 +1,6 @@
 package com.md.appointmentconsultationsservice.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,7 +26,7 @@ public class Consultation {
 
     private Date rapportConsultation;
 
-    @OneToOne
-    @JoinColumn(name = "rendezvous_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "consultation",fetch = FetchType.LAZY)
+   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Appointment appointment;
 }

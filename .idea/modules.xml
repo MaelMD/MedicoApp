@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MedicoApp/MedicoApp.iml" filepath="$PROJECT_DIR$/MedicoApp/MedicoApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/MedicoAppProject.iml" filepath="$PROJECT_DIR$/.idea/MedicoAppProject.iml" />
     </modules>
   </component>
