@@ -3,10 +3,11 @@ package com.md.patientsdoctorsservice.Services;
 import com.md.patientsdoctorsservice.Entities.Doctor;
 import com.md.patientsdoctorsservice.Repositories.DoctorRepository;
 import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 
 @Service
 public class DoctorServiceImpl implements DoctorService{
