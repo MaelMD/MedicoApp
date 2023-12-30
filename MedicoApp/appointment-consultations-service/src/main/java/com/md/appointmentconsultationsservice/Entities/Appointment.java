@@ -31,5 +31,4 @@ public class Appointment {
     private Patient patient;
     private Long patient_id;
 
-
 }
