@@ -2,12 +2,15 @@ package com.md.appointmentconsultationsservice.Service;
 
 import com.md.appointmentconsultationsservice.Entities.Appointment;
 
+import com.md.appointmentconsultationsservice.Entities.Consultation;
 import com.md.appointmentconsultationsservice.Repository.AppointmentRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class AppointmentServiceImp implements AppointmentService {
     private AppointmentRepository appointmentRepository;
 
@@ -21,8 +24,8 @@ public class AppointmentServiceImp implements AppointmentService {
     }
 
     @Override
-    public Optional<Appointment> findAppointmentId(Long id) {
-        return this.appointmentRepository.findById(id);
+    public Appointment findAppointmentId(Long id) {
+        return appointmentRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Appointment not found"));
     }
 
     @Override
@@ -32,15 +35,10 @@ public class AppointmentServiceImp implements AppointmentService {
 
     @Override
     public Appointment updateAppointment(Long id, Appointment appointment) {
-        return appointmentRepository.findById(id)
-                .map(existingappointment -> {
-                    existingappointment.setHeureRDV(appointment.getHeureRDV());
-                    existingappointment.setDateRDV(appointment.getDateRDV());
-                    existingappointment.setConsultation(appointment.getConsultation());
-                    return appointmentRepository.save(existingappointment);
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found with id " + id));
-    }
+        Appointment appointment1=appointmentRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Appointment not found"));
+        appointment1.setDateRDV(appointment.getDateRDV());
+        appointment1.setHeureRDV(appointment.getHeureRDV());
+        return appointmentRepository.save(appointment1);}
 
     @Override
     public void deleteAppointment(Long id) {

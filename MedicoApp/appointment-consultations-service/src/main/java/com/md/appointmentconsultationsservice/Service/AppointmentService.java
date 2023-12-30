@@ -5,11 +5,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-@Service
+
 public interface AppointmentService {
     List<Appointment> findAllAppointments();
 
-    Optional<Appointment> findAppointmentId(Long id);
+    Appointment findAppointmentId(Long id);
 
     Appointment saveAppointment(Appointment appointment);
 

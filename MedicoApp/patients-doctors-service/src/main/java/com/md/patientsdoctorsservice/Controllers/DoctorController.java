@@ -12,7 +12,7 @@ import java.util.List;
 public class DoctorController {
 
     @Autowired
-    DoctorService doctorService;
+    private  DoctorService doctorService;
 
     @GetMapping(value = "/all")
     public List<Doctor> findAll(){

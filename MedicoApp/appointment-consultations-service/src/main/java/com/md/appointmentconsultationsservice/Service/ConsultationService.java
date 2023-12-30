@@ -1,6 +1,7 @@
 package com.md.appointmentconsultationsservice.Service;
 
 import com.md.appointmentconsultationsservice.Entities.Consultation;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;

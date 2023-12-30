@@ -21,8 +21,9 @@ public class AppointmentController {
     }
 
     @GetMapping("/find/{id}")
-    public Optional<Appointment> getAppointmentById(@PathVariable Long id){
+    public Appointment getAppointmentById(@PathVariable Long id){
         return appointmentService.findAppointmentId(id);
+
     }
 
     @PostMapping("/save")

@@ -3,6 +3,7 @@ package com.md.patientsdoctorsservice.Services;
 import com.md.patientsdoctorsservice.Entities.Doctor;
 import com.md.patientsdoctorsservice.Entities.Patient;
 import com.md.patientsdoctorsservice.Repositories.PatientRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
 @Service
 public class PatientServiceImpl implements PatientService{
     @Autowired
-    PatientRepository patientRepository;
+    private PatientRepository patientRepository;
 
     @Override
     public List<Patient> getAllPatient(){
@@ -19,7 +20,7 @@ public class PatientServiceImpl implements PatientService{
     }
     @Override
     public Patient findById(Long id){
-        return patientRepository.findById(id).get();
+        return patientRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Patient not found"));
     }
     @Override
     public Patient savePatient(Patient patient){

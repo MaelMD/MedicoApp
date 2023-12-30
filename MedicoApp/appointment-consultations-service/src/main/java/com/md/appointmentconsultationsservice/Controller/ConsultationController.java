@@ -11,9 +11,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/consultations")
 public class ConsultationController {
-
-    @Autowired
     private ConsultationService consultationService;
+
+    public ConsultationController(ConsultationService consultationService) {
+        this.consultationService = consultationService;
+    }
 
     @GetMapping("/all")
     public List<Consultation> getAllConsultations(){

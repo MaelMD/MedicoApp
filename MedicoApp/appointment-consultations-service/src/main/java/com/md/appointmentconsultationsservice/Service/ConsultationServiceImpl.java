@@ -1,7 +1,10 @@
 package com.md.appointmentconsultationsservice.Service;
 
+import com.md.appointmentconsultationsservice.Entities.Appointment;
 import com.md.appointmentconsultationsservice.Entities.Consultation;
+import com.md.appointmentconsultationsservice.Repository.AppointmentRepository;
 import com.md.appointmentconsultationsservice.Repository.ConsultationRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -11,15 +14,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
 public class ConsultationServiceImpl implements ConsultationService {
 
-    private final ConsultationRepository consultationRepository;
+    private ConsultationRepository consultationRepository;
 
-    @Autowired
     public ConsultationServiceImpl(ConsultationRepository consultationRepository) {
         this.consultationRepository = consultationRepository;
     }
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @Override
     public List<Consultation> findAllConsultations() {
@@ -38,15 +41,11 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public Consultation updateConsultation(Long id, Consultation consultation) {
-        return consultationRepository.findById(id)
-                .map(existingConsultation -> {
-                    existingConsultation.setDateConsultation(consultation.getDateConsultation());
-                    existingConsultation.setRapportConsultation(consultation.getRapportConsultation());
-                    existingConsultation.setAppointment(consultation.getAppointment());
-                    return consultationRepository.save(existingConsultation);
-                })
-                .orElseThrow(() -> new ResourceNotFoundException("Consultation not found with id " + id));
-    }
+    Consultation result =consultationRepository.findById(consultation.getId()).get();
+    Appointment appointment=result.getAppointment();
+        appointmentRepository.save(consultation.getAppointment());
+        return consultationRepository.save(consultation);
+}
 
     @Override
     public void deleteConsultation(Long id) {
