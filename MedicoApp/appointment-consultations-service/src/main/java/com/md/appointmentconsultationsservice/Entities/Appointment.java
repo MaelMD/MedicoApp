@@ -1,5 +1,7 @@
 package com.md.appointmentconsultationsservice.Entities;
 
+import com.md.appointmentconsultationsservice.Model.Doctor;
+import com.md.appointmentconsultationsservice.Model.Patient;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +24,12 @@ public class Appointment {
     private Date heureRDV;
     @OneToOne
     private  Consultation consultation;
+    @Transient
+    private Doctor doctor;
+    private Long doctor_id;
+    @Transient
+    private Patient patient;
+    private Long patient_id;
 
 
 }
