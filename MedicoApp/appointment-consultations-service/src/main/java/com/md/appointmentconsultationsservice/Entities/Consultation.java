@@ -1,5 +1,6 @@
 package com.md.appointmentconsultationsservice.Entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,11 +23,13 @@ public class Consultation {
     private Long id;
 
     @Temporal(TemporalType.DATE)
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "UTC")
     private Date dateConsultation;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH:mm:ss")
     private Date rapportConsultation;
 
     @OneToOne(mappedBy = "consultation",fetch = FetchType.LAZY)
-   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Appointment appointment;
 }
