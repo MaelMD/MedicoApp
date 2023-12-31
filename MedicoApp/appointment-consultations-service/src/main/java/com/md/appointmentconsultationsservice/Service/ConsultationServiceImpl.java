@@ -41,11 +41,11 @@ public class ConsultationServiceImpl implements ConsultationService {
 
     @Override
     public Consultation updateConsultation(Long id, Consultation consultation) {
-    Consultation result =consultationRepository.findById(consultation.getId()).get();
-    Appointment appointment=result.getAppointment();
-        appointmentRepository.save(consultation.getAppointment());
-        return consultationRepository.save(consultation);
-}
+        Consultation result = consultationRepository.findById(consultation.getId()).get();
+        Appointment appointment=result.getAppointment();
+            appointmentRepository.save(consultation.getAppointment());
+            return consultationRepository.save(consultation);
+    }
 
     @Override
     public void deleteConsultation(Long id) {
