@@ -41,20 +41,7 @@ public class AppointmentController {
 
     @PostMapping("/create")
     public Appointment createAppointment(@RequestBody Appointment appointment) {
-        System.out.println(appointment.getPatient_id());
-        Patient patient = patientClient.getPatientById(appointment.getPatient_id());
-        Doctor doctor = doctorClient.findById(appointment.getDoctor_id());
-        if (patient == null || doctor == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient or Doctor not found");
-        }
-
-        Appointment newAppointment = new Appointment();
-        newAppointment.setPatient_id(appointment.getPatient_id());
-        newAppointment.setDoctor_id(appointment.getDoctor_id());
-        newAppointment.setDateRDV(appointment.getDateRDV());
-        newAppointment.setHeureRDV(appointment.getHeureRDV());
-        newAppointment.setConsultation(appointment.getConsultation());
-        return appointmentService.saveAppointment(newAppointment);
+        return appointmentService.saveAppointment(appointment);
     }
 
     @PutMapping("/{id}")
