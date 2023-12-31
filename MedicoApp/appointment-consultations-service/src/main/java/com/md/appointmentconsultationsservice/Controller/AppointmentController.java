@@ -1,8 +1,17 @@
 package com.md.appointmentconsultationsservice.Controller;
 
+import com.md.appointmentconsultationsservice.Clients.DoctorClient;
+import com.md.appointmentconsultationsservice.Clients.PatientClient;
 import com.md.appointmentconsultationsservice.Entities.Appointment;
+import com.md.appointmentconsultationsservice.Model.Doctor;
+import com.md.appointmentconsultationsservice.Model.Patient;
+import com.md.appointmentconsultationsservice.Repository.AppointmentRepository;
 import com.md.appointmentconsultationsservice.Service.AppointmentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -11,8 +20,12 @@ import java.util.Optional;
 @RequestMapping("/appointments")
 public class AppointmentController {
     private AppointmentService appointmentService;
-    public AppointmentController(AppointmentService appointmentService) {
+    private final PatientClient patientClient;
+    private final DoctorClient doctorClient;
+    public AppointmentController(AppointmentService appointmentService,PatientClient patientClient, DoctorClient doctorClient) {
         this.appointmentService = appointmentService;
+        this.patientClient = patientClient;
+        this.doctorClient = doctorClient;
     }
 
     @GetMapping("/all")
@@ -26,9 +39,22 @@ public class AppointmentController {
 
     }
 
-    @PostMapping("/save")
+    @PostMapping("/create")
     public Appointment createAppointment(@RequestBody Appointment appointment) {
-        return appointmentService.saveAppointment(appointment);
+        System.out.println(appointment.getId());
+        Patient patient = patientClient.getPatientById(appointment.getPatient_id());
+        Doctor doctor = doctorClient.findById(appointment.getDoctor_id());
+        if (patient == null || doctor == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient or Doctor not found");
+        }
+
+        Appointment newAppointment = new Appointment();
+        newAppointment.setPatient(patient);
+        newAppointment.setDoctor(doctor);
+        newAppointment.setDateRDV(appointment.getDateRDV());
+        newAppointment.setHeureRDV(appointment.getHeureRDV());
+
+        return appointmentService.saveAppointment(newAppointment);
     }
 
     @PutMapping("/{id}")
