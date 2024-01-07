@@ -42,9 +42,11 @@ public class AppointmentServiceImp implements AppointmentService {
     public Appointment saveAppointment(Appointment appointment) {
         Patient patient = patientClient.getPatientById(appointment.getPatient_id());
         Doctor doctor = doctorClient.findById(appointment.getDoctor_id());
-        if (patient == null || doctor == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient or Doctor not found");
-        }
+        System.out.println(patient.getEmail());
+        System.out.println(doctor.getEmail());
+//        if (patient == null || doctor == null) {
+//            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Patient or Doctor not found");
+//        }
         Appointment newAppointment = new Appointment();
         newAppointment.setPatient_id(appointment.getPatient_id());
         newAppointment.setDoctor_id(appointment.getDoctor_id());
