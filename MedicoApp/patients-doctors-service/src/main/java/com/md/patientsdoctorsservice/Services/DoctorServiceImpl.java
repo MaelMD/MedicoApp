@@ -37,12 +37,8 @@ public class DoctorServiceImpl implements DoctorService{
     }
     @Override
     public Doctor updateDoctor(Doctor doctor){
-        Doctor doc = this.findById(doctor.getId());
-
-        if(doc == null){
-            return doctorRepository.save(doctor);
-        }
-        return null;
+        //Doctor doc = this.findById(doctor.getId());
+        return doctorRepository.save(doctor);
     }
     @Override
     public void deleteDoctor(Long id){

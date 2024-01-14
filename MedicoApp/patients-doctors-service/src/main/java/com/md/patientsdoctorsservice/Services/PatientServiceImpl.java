@@ -37,11 +37,8 @@ public class PatientServiceImpl implements PatientService{
     @Override
     public Patient updatePatient(Patient patient){
         Patient pat = this.findById(patient.getId());
+        return patientRepository.save(patient);
 
-        if(pat == null){
-            return patientRepository.save(patient);
-        }
-        return null;
     }
     @Override
     public void deletePatient(Long id){
