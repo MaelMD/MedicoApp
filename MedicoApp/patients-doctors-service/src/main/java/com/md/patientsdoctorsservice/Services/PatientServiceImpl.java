@@ -20,7 +20,10 @@ public class PatientServiceImpl implements PatientService{
     }
     @Override
     public Patient findById(Long id){
-        return patientRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Patient not found"));
+        if (patientRepository.findById(id).isEmpty()){
+            return null;
+        }
+        return patientRepository.findById(id).get();
     }
     @Override
     public Patient savePatient(Patient patient){
